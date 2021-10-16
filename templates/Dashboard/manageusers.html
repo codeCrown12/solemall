@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage users</title>
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/taylor-sans" type="text/css"/>                       
+  <link href="http://fonts.cdnfonts.com/css/dekobrett" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static',filename='dashboardcss/styles.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='dashboardcss/index.css')}}">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="#" class="navbar-brand"><h2 style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</h2></a>
+    <div class="collapsible">
+      <ul class="navbar-items">
+        <li class="nav-item">
+          <a href="#"><strong>Balance:</strong> ${{profit[0]}}👑</a>
+        </li>
+      </ul>
+      <button class="btn-bars"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div>
+          <h2 style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</h2>
+          <p style="font-style: italic;">Shoes that fit...</p>
+        </div>
+      </div>
+      <div class="underline"></div>
+      <div class="sidebar-content">
+        <ul class="sidebar-items">
+          <li class="sidebar-item"><a href="/home"><i class="fas fa-chart-line"></i>&nbsp; Overview</a></li>
+          <li class="sidebar-item"><a href="/addproduct"><i class="fas fa-tshirt"></i>&nbsp; Add product</a></li>
+          <li class="sidebar-item"><a href="/manageproduct"><i class="fas fa-dice-d20"></i>&nbsp; Manage products</a></li>
+          <li class="sidebar-item active"><a href="/manageusers"><i class="fas fa-user"></i>&nbsp; Manage users</a></li>
+          <li class="sidebar-item"><a href="/sendemail"><i class="fas fa-paper-plane"></i>&nbsp; Send emails</a></li>
+          <li class="sidebar-item"><a href="/adminlogout"><i class="fas fa-power-off"></i>&nbsp; Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-content" id="main-content">
+      <h2><i class="fas fa-user"></i> Manage Users</h2>
+      <div class="main-body-content">
+        <div>
+          <div class="table-orders">
+            <table id="example" class="stripe row-border" style="width:100%">
+              <thead>
+                <tr class="sol-row">
+                  <th>User ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Mobile</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if size >= 1 %}
+                {% for item in users %}
+                <tr>
+                  <td class="table-item">SOLUID-{{item[0]}}</td>
+                  <td class="table-item">{{item[1]}}</td>
+                  <td class="table-item">{{item[2]}}</td>
+                  <td class="table-item">{% if len(item[3]) > 15 %}{{item[3][:15]}}... {% else %} {{item[3]}} {% endif %}</td>
+                  <td class="table-item">{{item[4]}}</td>
+                  <td><button data-id="{{item[0]}}" class="btn-success-sm">View more</button></td>
+                  <td><button data-id="{{item[0]}}" class="btn-danger-sm">Remove</button></td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <footer>
+        <div style="text-align: center;">
+          <p>Made by 👑 codecrown with ❤️</p>
+        <p>&copy; 2021</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="{{url_for('static',filename='dashboardjs/script.js')}}"></script>
+  <script>
+    $(document).ready(function() {
+    $('#example').DataTable();
+  });
+  </script>
+</body>
+</html>

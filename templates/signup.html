@@ -1,0 +1,92 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/taylor-sans" type="text/css"/>
+    <link href="http://fonts.cdnfonts.com/css/dekobrett" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/signup.css')}}">
+</head>
+<body>
+    <div class="container vh-100">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="/" style="color: #000;text-decoration: none;"><h2 class="text-center"><strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></h2></a>
+                        <h3 class="text-center" style="font-weight: bold;">Create your account</h3>
+                        <p class="text-danger text-center">{{msg}}</p>
+                        <form action="" method="POST" class="mt-4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="fname" type="text" placeholder="First Name" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="lname" type="text" placeholder="Last Name" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="email" type="email" placeholder="Email address" aria-label="Search">
+                                    </div>
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="mobile" type="tel" placeholder="Mobile number" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="passone" type="password" placeholder="Password" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="passtwo" type="password" placeholder="Confirm Password" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="street" type="text" placeholder="Street address" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-5">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="state" type="text" placeholder="State" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="city" type="text" placeholder="City" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="mb-3">
+                                        <input class="form-control me-2" name="zip" type="text" placeholder="zip" aria-label="Search">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="mb-3">
+                                        <button type="submit" name="register" class="btn btn-dark rounded-0 shadow-0 w-100 p-2">SIGN UP</button>
+                                    </div>
+                                    <div>
+                                        <p>Already have an account?&nbsp;<a href="/login">Sign in</a></p>
+                                    </div>
+                                </div>
+                            </div>     
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

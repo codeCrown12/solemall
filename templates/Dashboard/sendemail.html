@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Send email</title>
+  <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/taylor-sans" type="text/css"/>                      
+  <link href="http://fonts.cdnfonts.com/css/dekobrett" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="{{url_for('static',filename='dashboardcss/styles.css')}}">
+  <link rel="stylesheet" href="{{url_for('static',filename='dashboardcss/sendmail.css')}}">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="#" class="navbar-brand"><h2 style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</h2></a>
+    <div class="collapsible">
+      <ul class="navbar-items">
+        <li class="nav-item">
+          <a href="#"><strong>Balance:</strong> ${{profit[0]}}👑</a>
+        </li>
+      </ul>
+      <button class="btn-bars"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div>
+          <h2 style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</h2>
+          <p style="font-style: italic;">Shoes that fit...</p>
+        </div>
+      </div>
+      <div class="underline"></div>
+      <div class="sidebar-content">
+        <ul class="sidebar-items">
+          <li class="sidebar-item"><a href="/home"><i class="fas fa-chart-line"></i>&nbsp; Overview</a></li>
+          <li class="sidebar-item"><a href="/addproduct"><i class="fas fa-tshirt"></i>&nbsp; Add product</a></li>
+          <li class="sidebar-item"><a href="/manageproduct"><i class="fas fa-dice-d20"></i>&nbsp; Manage products</a></li>
+          <li class="sidebar-item"><a href="/manageusers"><i class="fas fa-user"></i>&nbsp; Manage users</a></li>
+          <li class="sidebar-item active"><a href="/sendemail"><i class="fas fa-paper-plane"></i>&nbsp; Send emails</a></li>
+          <li class="sidebar-item"><a href="/adminlogout"><i class="fas fa-power-off"></i>&nbsp; Logout</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-content" id="main-content">
+      <h2><i class="fas fa-paper-plane"></i> Send email</h2>
+      <div class="main-body-content">
+        <div class="compose">
+            <div class="msg-box">
+                <h3 style="margin-bottom: 15px;">Compose email</h3>
+                <form action="" method="post">
+                    <input type="text" class="form-control" placeholder="Subject Here...">
+                    <select name="" id="" class="form-control">
+                      <option value="">-- Select user email --</option>
+                    </select>
+                    <input type="text" class="form-control" placeholder="Full name" readonly>
+                    <textarea class="form-control" placeholder="Message Here..." name="" id="" rows="10"></textarea>
+                    <button style="margin-top: 15px;" type="submit" class="btn-default">Send Message <i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+            <div class="msg-img">
+                <img class="msg-icon" src="https://img.icons8.com/external-others-sbts2018/200/000000/external-message-social-media-others-sbts2018.png"/>
+                <p>Lorem ipsum dolor sit amet conse Quas possimus incidunt at, ut porro ipsa sunt.</p>
+            </div>
+        </div>
+      </div>
+      <footer>
+        <div style="text-align: center;">
+          <p>Made by 👑 codecrown with ❤️</p>
+        <p>&copy; 2021</p>
+        </div>
+      </footer>
+    </div>
+  </div>
+  <!-- <script src="https://cdn.tiny.cloud/1/0h01t537dv5w80phd2kb1873sfhpg9mg6ek7ckr1aly3myzy/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script> -->
+  <script src="{{url_for('static',filename='dashboardjs/script.js')}}"></script>
+  <!-- <script>
+      tinymce.init({
+          selector: 'textarea',
+          height: 300,
+          plugins: [
+            'advlist autolink link image lists charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking',
+            'table emoticons template paste help codesample'
+            ],
+            toolbar: 'fullscreen | insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image codesample | preview fullpage | forecolor backcolor emoticons',
+            menubar: ''
+       });v
+  </script> -->
+</body>
+</html>

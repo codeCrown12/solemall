@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/taylor-sans" type="text/css"/>                        
+    <link href="http://fonts.cdnfonts.com/css/dekobrett" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='dashboardcss/styles.css')}}">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: #f0f0f0;
+            font-family: 'Midiet', sans-serif;   
+            display: flex;
+            align-items: center;                           
+            justify-content: center;     
+            padding: 10px;                                                                                                             
+        }
+        button{
+            font-family: 'Midiet', sans-serif;  
+        }
+        .container{
+            background-color: #fff;
+            width: 35%;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin-top: 100px;
+            display: block;
+        }
+        .logo{
+            font-family: 'DekoBrett', sans-serif; 
+            text-align: center;
+            margin-top: 20px;
+        }
+        .form-group{
+            margin-top: 10px;
+            padding: 20px;
+        }
+        .w-100{
+            width: 100%;
+            font-size: large;
+        }
+        a{
+            color: black;
+            text-decoration: none;
+        }
+        @media screen and (max-width: 700px) {
+            .container{
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#"><h1 class="logo">SOLEMALL</h1></a>
+        <p class="text-center">Admin Login</p>
+        <p class="text-center" style="color: red;">
+            {{errmsg}}
+        </p>
+        <div class="form-group">
+            <form action="" method="post">
+                <input type="text" name="uname" id="" class="form-control" placeholder="Username..">
+                <input type="password" name="pass" id="" class="form-control" placeholder="password...">
+                <button type="submit" class="btn-default w-100">LOGIN</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

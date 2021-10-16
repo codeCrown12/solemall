@@ -1,0 +1,36 @@
+.stat-card{
+    border: 1px solid #ccc;
+    background-color: #fff;
+    margin-right: 17px;
+    width: 300px;
+    transition: .5s ease;
+  }
+  .stat-card:hover{
+    transform: translateY(-8px);
+    box-shadow: 0 4px 15px -5px rgb(0 0 0 / 35%);
+  }
+  .caption-details{
+    margin-left: 15px;
+  }
+  .stat-card-body{
+    padding: 20px;
+  }
+  .table-orders{
+    width: 90%;
+    margin: auto;
+    background-color: #fff;
+    margin-top: 20px;
+    padding: 24px;
+    overflow-x: auto;
+    border: 1px solid #ccc;
+  }
+  @media screen and (max-width: 700px){
+    .table-orders{
+      width: 100%;
+    }
+    .stat-card{
+      width: 100%;
+      margin-bottom: 10px;
+      margin-right: 0;
+    }
+  }

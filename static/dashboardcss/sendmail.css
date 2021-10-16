@@ -1,0 +1,34 @@
+.compose{
+    width: 90%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    margin: auto;
+    display: flex;
+    padding: 20px;
+}
+.msg-box{
+    width: 60%;
+}
+.msg-img{
+    width: 40%;
+    padding-left: 25px;
+    text-align: center;
+}
+.msg-icon{
+    margin-top: 50px;
+}
+@media screen and (max-width: 700px){
+    .compose{
+        flex-wrap: wrap-reverse;
+        width: 100%;
+        padding: 10px;
+    }
+    .msg-box{
+        width: 100%;
+        margin-top: 30px;
+    }
+    .msg-img{
+        width: 100%;
+        padding: 0;
+    }
+}

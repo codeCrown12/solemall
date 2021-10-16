@@ -1,0 +1,293 @@
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop with us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/taylor-sans" type="text/css"/>
+    <link href="http://fonts.cdnfonts.com/css/dekobrett" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <style>
+      .actions{
+        margin-top: 90px;
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav ms-sm-0 ms-md-4 justify-content-start flex-grow-1 pe-3">
+                  <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/shop">Shop</a>
+                  </li>
+                  <li class="nav-item {{u_show}}">
+                      <a class="nav-link" href="/cart">Cart <span class="cart-sm badge bg-danger">{{totalcartitems[0]}}</span></a>
+                  </li>
+                  <li class="nav-item {{u_show}}">
+                      <a class="nav-link" href="/profile">Profile</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="#">Contact us</a>
+                  </li>
+                  <li class="nav-item {{nav_show}}">
+                      <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item {{nav_show}}">
+                      <a class="nav-link" href="/signup"> Signup</a>
+                  </li>
+              </ul>
+              <form class="d-flex align-items-center" method="POST">
+                <input class="form-control me-2" name="keyword" style="width: 350px;" type="text" placeholder="Search shoe...">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+              </form>
+              <div class="d-lg-flex align-items-center cart-icon-div">
+                <a href="/cart" class="position-relative nav-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
+                      {{totalcartitems[0]}}
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container-fluid p-5 bg-dark" style="margin-top: 57px;">
+          <div class="row justify-content-center">
+            <div class="col-md-5">
+                <h3 class="text-center text-light">SHOP WITH US</h3>
+            </div>
+          </div>
+      </div>
+      <div class="container-fluid mt-5 mb-5">
+          <div class="row justify-content-center">
+              <div class="col-md-10">
+                <form action="" method="POST">
+                <div class="row">
+                    <div class="col-md-4">
+                      <div class="mb-3">
+                        <select name="category" id="" class="form-select" onchange="this.form.submit()">
+                          <option value="">-- Select category --</option>
+                          {% for cat in categories %}
+                          {% for i in cat %}
+                            <option value={{i}}>{{i}}</option>
+                          {% endfor %}
+                          {% endfor %}
+                        </select>
+                      </div>
+                </div>
+                <div class="col-md-4">
+                      <div class="mb-4">
+                          <select name="price" class="form-select" onchange="this.form.submit()">
+                              <option value="">-- Select Price --</option>
+                              <option value="lowest">Lowest to highest</option>
+                              <option value="highest">Highest to lowest</option>
+                          </select>
+                      </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="mb-4">
+                    <select name="size" class="form-select" onchange="this.form.submit()">
+                        <option value="">-- Select Size --</option>
+                        <option value="S">Small</option>
+                        <option value="M">Medium</option>
+                        <option value="L">Large</option>
+                        <option value="XL">Extra large</option>
+                    </select>
+                </div>
+                </div>
+                </div>
+              </form>
+                <div class="row">
+                  {% if size >= 1 %}
+                    {% for item in items %}
+                    <div class="col-md-3">
+                        <div class="p-object">
+                            <img src="{{url_for('static',filename='products/'+item[3])}}" class="p-img" alt="">
+                            <div class="p-overlay">
+                              <div class="actions">
+                                <a href="/product?pid={{item[0]}}" class="viewmore w-100 btn btn-outline-light rounded-0 shadow-0 mt-2">View more <i class="fas fa-eye"></i></a>
+                                {% if checkCart(item[0]) %}
+                                <a href="/cart" class="w-100 btn btn-outline-light rounded-0 shadow-0 mt-2">Modify in cart</a>
+                                {% else%}
+                                <button data-color="{{stringToList(item[4])[0]}}" data-size="{{stringToList(item[5])[1]}}" data-id="{{item[0]}}" class="addcart btn w-100 btn-outline-light rounded-0 shadow-0 mt-2">Add to cart <i class="fas fa-shopping-cart"></i></button>
+                                {% endif %}
+                              </div>
+                            </div>
+                        </div>
+                        <div class="p-details">
+                            <p class="p-name">{{item[1]}}</p>
+                            <p class="p-price">$ {{item[2]}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div>
+                      <p class="text-center" style="margin-bottom: 2px;"><img src="https://img.icons8.com/color/60/000000/no-baggage.png"/></p>
+                      <h3 class="text-center">Sorry chief,</h3>
+                      <p class="text-center" style="color: #838383;">No items found here!</p>
+                    </div>
+                    {% endif %}
+                </div>
+              </div>
+          </div>
+      </div>
+      <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="about-text">
+                        <h3>ABOUT <strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></h3>
+                        <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quo veritatis magni maiores odio quos atque, numquam quod delectus consequuntur quae aut sit, laborum officia placeat iste aperiam assumenda nostrum?</P>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="categories">
+                        <h4>Popular categories</h4>
+                        <ul class="footer-cat">
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Female shoes</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Male shoes</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Baby shoes</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Sneakers</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Boots</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="categories">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-cat">
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Popular</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Latest</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Login</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Sign up</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="socials">
+                        <h4>Follow us</h4>
+                        <div class="social-icons">
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-twitter"></i>
+                              </div>
+                            </a>
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-instagram"></i>
+                              </div>
+                            </a>
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-dribbble"></i>
+                              </div>
+                            </a>
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-pinterest"></i>
+                              </div>
+                            </a>
+                          </div>
+                        <div class="newsletter mt-3">
+                            <h6>Subscribe to our newsletter</h6>
+                            <form class="d-lg-flex d-md-block align-items-center">
+                                <input class="form-control me-2" type="email" placeholder="Enter email..." aria-label="Search">
+                                <button class="btn btn-outline-dark mt-lg-0 mt-md-2" type="submit">Submit</button>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+<script>
+  $(document).ready(function(){
+    var btnaddcart = $(".addcart")
+    btnaddcart.click(function(e){
+        var pid = $(this).attr('data-id')
+        var color = $(this).attr('data-color')
+        var size = $(this).attr('data-size')
+        $.ajax({
+          type: "POST",
+          data: {pid: pid, color: color, size: size, qty: 1},
+          url: "/addcart"
+        }).done(function(res){
+          if (res == "Item added to cart successfully!"){
+              Swal.fire({
+              title: 'Success',
+              text: res,
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+              }).then((result) => {
+              if (result.isConfirmed) {
+                  location.reload()
+              }
+            })
+          }
+          else if (res == "You're not logged in") {
+            Swal.fire({
+              title: 'Sorry!',
+              text: res,
+              icon: 'warning',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Login'
+              }).then((result) => {
+              if (result.isConfirmed) {
+                  location.replace('/login')
+              }
+            })
+          }
+          else{
+            Swal.fire({
+              title: 'Sorry',
+              text: res,
+              icon: 'warning',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Modify in cart'
+              }).then((result) => {
+              if (result.isConfirmed) {
+                  location.replace('/cart')
+              }
+            })
+          }
+        }).fail(function(e){
+          console.log(e)
+        })
+      })
+  })
+</script>
+</body>
+</html>
+
+{% endblock %}

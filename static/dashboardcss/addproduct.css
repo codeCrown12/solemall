@@ -1,0 +1,42 @@
+.add-product{
+    background-color: #fff;
+    width: 90%;
+    margin: auto;
+    border: 1px solid #ccc;
+    padding: 20px;
+}
+.form-container{
+    display: flex;
+    align-items: center;
+}
+.form-group{
+    display: block;
+    width: 50%;
+    margin-right: 15px;
+}
+.product-img{
+    width: 50%;
+    padding-left: 13px;
+}
+.p-img{
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
+@media screen and (max-width: 700px){
+    .product-img{
+        width: 100%;
+        padding: 0;
+    }
+    .form-group{
+        width: 100%;
+        margin-top: 20px;
+        margin-right: 0;
+    }
+    .form-container{
+        flex-wrap: wrap-reverse;
+    }
+    .add-product{
+        width: 100%;
+    }
+}

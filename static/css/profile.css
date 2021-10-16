@@ -1,0 +1,51 @@
+.main-body{
+    margin-top: 90px;
+}
+.description{
+    color: #686868;
+    font-size: 13px;
+}
+.card{
+    border-radius: 0;
+}
+.tab-list{
+    list-style-type: none;
+}
+.tab-link{
+    padding: 10px 12px;
+    margin-bottom: 7px;
+    transition: .3s ease;
+
+}
+.tab-link:hover{
+    background-color: #e4e4e4;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.tab-active{
+    background-color: #5e5e5e;
+    border-radius: 5px;
+    color: #fff;
+}
+.tab-active:hover{
+    background-color: #5e5e5e;
+    border-radius: 5px;
+    color: #fff;
+}
+.tab-content{
+    display: none;
+}
+.wish-img{
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+}
+.remwish{
+    margin-top: 25px;
+    transition: .5s ease;
+    margin-left: 10px;
+}
+.remwish:hover{
+    cursor: pointer;
+    color: #cf0202 !important;
+}

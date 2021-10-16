@@ -1,0 +1,46 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify token</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/taylor-sans" type="text/css"/>
+    <link href="http://fonts.cdnfonts.com/css/dekobrett" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/login.css')}}">
+</head>
+<body>
+    <div class="container vh-100">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <a href="/" style="color: #000;text-decoration: none;"><h2 class="text-center"><strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></h2></a>
+                        <h3 class="text-center" style="font-weight: bold;">Verify token</h3>
+                        <p class="text-danger text-center">{{msg}}</p>
+                        <p class="text-success text-center">{{s_msg}}</p>
+                        <form method="POST" class="mt-4">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <input name="token" class="form-control me-2" type="text" placeholder="Enter token...">
+                                </div>
+                                <div class="mb-3">
+                                    <button name="verify" type="submit" class="btn btn-dark rounded-0 shadow-0 w-100 p-2">VERIFY TOKEN</button>
+                                </div>
+                                <div>
+                                    <p><a href="/verifychangepass?reqtoken=true" style="color: black;text-decoration: none;">REQUEST NEW PIN</a></p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

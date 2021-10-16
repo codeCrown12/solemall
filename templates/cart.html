@@ -1,0 +1,449 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/taylor-sans" type="text/css"/>
+    <link href="http://fonts.cdnfonts.com/css/dekobrett" rel="stylesheet">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+    <link rel="stylesheet" href="{{url_for('static',filename='css/cart.css')}}">
+</head>
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#"><strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel"><strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></h5>
+              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav ms-sm-0 ms-md-4 justify-content-start flex-grow-1 pe-3">
+                <li class="nav-item">
+                  <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/shop">Shop</a>
+                </li>
+                <li class="nav-item {{u_show}}">
+                    <a class="nav-link active" href="/cart">Cart <span class="cart-sm badge bg-danger">{{totalcartitems[0]}}</span></a>
+                </li>
+                <li class="nav-item {{u_show}}">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact us</a>
+                </li>
+                <li class="nav-item {{nav_show}}">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item {{nav_show}}">
+                    <a class="nav-link" href="/signup"> Signup</a>
+                </li>
+              </ul>
+              <form class="d-flex align-items-center" method="POST" action="/shop">
+                <input class="form-control me-2" name="keyword" style="width: 350px;" type="text" placeholder="Search shoe...">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+              </form>
+              <div class="d-lg-flex align-items-center cart-icon-div">
+                <a href="/cart" class="position-relative nav-cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
+                      {{totalcartitems[0]}}
+                      <span class="visually-hidden">unread messages</span>
+                    </span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <div class="container mb-5" style="margin-top: 57px;">
+          <div class="row justify-content-center">
+              <div class="col-md-11">
+                <h2 class="mt-5">SHOPPING CART</h2>
+                  <div class="row">
+                    <div class="col-md-7">
+                        <div class="items-section">
+                          <h4 class="mt-4">({{totalcartitems[0]}}) ITEMS</h4>
+                          <hr class="underline">
+
+                            <!-- cart items -->
+                            {% if size >= 1 %}
+                            {% for item in items %}
+                          <div class="item-obj mt-4">
+                              <img src="{{url_for('static',filename='products/'+item[3])}}" alt="" class="item-img">
+                              <div class="item-details mt-3">
+                                  <p class="item-name">{{item[5]}}</p>
+                                  <p class="item-price">Unit price: <strong>$ {{item[4]}}</strong></p>
+                                  <ul class="detail-list mb-2">
+                                      <li class="item-detail">
+                                          color: {{item[0]}}
+                                      </li>
+                                      <li class="item-detail">
+                                          Size: {{item[1]}}
+                                      </li>
+                                      <li class="item-detail">
+                                          Quantity: {{item[2]}}
+                                      </li>
+                                  </ul>
+                                  <span data-total="{{item[2] * item[4]}}" class="total d-none">{{item[2] * item[4]}}</span>
+                                  <div class="prod-comp">
+                                    <div class="select-div me-2">
+                                        <p style="margin-bottom: 0; color: #a5a4a4;text-align: center;">color</p>
+                                        <select name="" id="" class="prod-color prod-amt" data-id="{{item[6]}}">
+                                            <option value={{item[0]}}>{{item[0]}}</option>
+                                            {% for color in stringToList(item[8]) %}
+                                                {% if color != item[0] %}
+                                                  <option value={{color}}>{{color}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="select-div me-2">
+                                        <p style="margin-bottom: 0; color: #a5a4a4;text-align: center;">qty</p>
+                                          <select name="" id="" class="prod-qty prod-amt" data-id="{{item[6]}}">
+                                            <option value={{item[2]}}>{{item[2]}}</option>
+                                            {% for qty in range(1, item[7] + 1) %}
+                                                {% if qty != item[2] %}
+                                                  <option value={{qty}}>{{qty}}</option>
+                                                {% endif %}
+                                            {% endfor %}
+                                          </select>
+                                    </div>
+                                    <div class="select-div me-2">
+                                        <p style="margin-bottom: 0; color: #a5a4a4;text-align: center;">size</p>
+                                        <select name="" id="" class="prod-size prod-amt" data-id="{{item[6]}}">
+                                          <option value={{item[1]}}>{{item[1]}}</option>
+                                          {% for size in stringToList(item[9]) %}
+                                          {% if size != item[1] %}
+                                              <option value={{size}}>{{size}}</option>
+                                          {% endif %}
+                                          {% endfor %}
+                                      </select>
+                                    </div>
+                                    <button data-id="{{item[6]}}" class="rembtn btn btn-outline-danger d-lg-none d-sm-block">Remove <i class="fas fa-times-circle"></i></button>
+                                </div>
+                              </div>
+                              <span class="close-button rembtn" data-id="{{item[6]}}"><i class="fas fa-times-circle"></i></span>
+                          </div>
+                          {% endfor %}
+                          {% else %}
+                            <div>
+                              <p class="text-center" style="margin-bottom: 2px;"><img src="https://img.icons8.com/color/60/000000/no-baggage.png"/></p>
+                              <h3 class="text-center">Hey chief,</h3>
+                              <p class="text-center" style="color: #838383;">No items in the cart!</p>
+                              <p class="text-center"><a href="/shop" class="btn btn-dark rounded-0">Shop</a></p>
+                            </div>
+                          {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="price-section">
+                        <h4 class="mt-4">ORDER SUMMARY</h4>
+                        <hr class="underline">
+                        <div class="card mt-4 rounded-0">
+                            <div class="card-body">
+                                <div class="mb-1 d-flex">
+                                    <p>Merchandise:</p>
+                                    <p class="ms-auto merch-total"></p>
+                                </div>
+                                <div class="mb-1 d-flex">
+                                    <p>Estimated shipping:</p>
+                                    <p class="ms-auto merch-ship" data-value="{{ship}}">
+                                      $ {{ship}}
+                                    </p>
+                                </div>
+                                <hr class="underline">
+                                <div class="mb-1 d-flex">
+                                    <p style="font-size: 20px;"><strong>ORDER TOTAL:</strong></p>
+                                    <p class="ms-auto g-total"></p>
+                                </div>
+                                <button id="checkout" class="btn btn-dark w-100 rounded-0 shadow-0 p-2"  data-products="{{products}}" data-colors="{{colors}}" data-sizes="{{sizes}}" data-qty="{{qty}}">PROCEED TO CHECKOUT</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="about-text">
+                        <h3>ABOUT <strong style="font-family: 'DekoBrett', sans-serif;">SOLEMALL</strong></h3>
+                        <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa quo veritatis magni maiores odio quos atque, numquam quod delectus consequuntur quae aut sit, laborum officia placeat iste aperiam assumenda nostrum?</P>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="categories">
+                        <h4>Popular categories</h4>
+                        <ul class="footer-cat">
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Female shoes</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Male shoes</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Baby shoes</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Sneakers</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Boots</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="categories">
+                        <h4>Quick Links</h4>
+                        <ul class="footer-cat">
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Popular</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Latest</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Login</a></li>
+                            <li class="footer-cat-item"><a href="#" class="footer-cat-link">Sign up</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="socials">
+                        <h4>Follow us</h4>
+                        <div class="social-icons">
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-twitter"></i>
+                              </div>
+                            </a>
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-instagram"></i>
+                              </div>
+                            </a>
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-dribbble"></i>
+                              </div>
+                            </a>
+                            <a href="#" target="_blank">
+                              <div class="icon-obj">
+                                <i class="fab fa-pinterest"></i>
+                              </div>
+                            </a>
+                          </div>
+                        <div class="newsletter mt-3">
+                            <h6>Subscribe to our newsletter</h6>
+                            <form class="d-lg-flex d-md-block align-items-center">
+                                <input class="form-control me-2" type="email" placeholder="Enter email..." aria-label="Search">
+                                <button class="btn btn-outline-dark mt-lg-0 mt-md-2 mt-sm-2" type="submit">Submit</button>
+                              </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function(){
+        var prodsize = $(".prod-size")
+        var prodcolor = $(".prod-color")
+        var prodqty = $(".prod-qty")
+        var rembtn = $(".rembtn")
+        
+        //Find and display total sum of all items 
+        var m_total = $(".merch-total")
+        var ship = $(".merch-ship")
+        var gtotal = $(".g-total")
+        var sum = 0
+        $(".total").each(function(){
+          sum += parseFloat($(this).attr("data-total"))
+        })
+        m_total.attr("data-value", sum)
+        m_total.text("$ "+ sum)
+        var mtotal = parseFloat(m_total.attr("data-value"))
+        var shipval = parseFloat(ship.attr("data-value"))
+        var g_total = mtotal + shipval
+        gtotal.attr("data-value", g_total)
+        gtotal.text("$ "+g_total)
+        
+        //End of snippet
+        
+        $("#checkout").click(function(e){
+          e.preventDefault()
+          var prods = $(this).attr("data-products")
+          var qtys = $(this).attr("data-qty")
+          var colors = $(this).attr("data-colors")
+          var sizes = $(this).attr("data-sizes")
+          var total = gtotal.attr("data-value")
+          $.ajax({
+                type: "POST",
+                data: {pids: prods, color: colors, size: sizes, total: total, qty: qtys},
+                url: "/addorder"
+          }).done(function(res){
+            if (res == "true"){
+              Swal.fire({
+              title: 'Success',
+              text: "Order placed successfully!",
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'OK'
+              }).then((result) => {
+              if (result.isConfirmed) {
+                location.replace('/shop')
+              }
+            })
+            }
+            else{
+              console.log(res)
+            }
+          }).fail(function(e){
+            console.log(e)
+          })
+        })
+
+
+        prodsize.change(function(e){
+          e.preventDefault()
+          var value = $(this).val()
+          var cid = $(this).attr("data-id")
+          var col = "size"
+          $.ajax({
+                type: "POST",
+                data: {cid: cid, col: col, value: value},
+                url: "/updatecart"
+              }).done(function(msg){
+                if (msg == "true") {
+                  Swal.fire({
+                    title: 'Success',
+                    text: "Size updated!",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                    }
+                  })
+                }
+              }).fail(function(e){
+                console.log(e)
+              })
+        })
+
+        prodcolor.change(function(e){
+          e.preventDefault()
+          var value = $(this).val()
+          var cid = $(this).attr("data-id")
+          var col = "color"
+          $.ajax({
+                type: "POST",
+                data: {cid: cid, col: col, value: value},
+                url: "/updatecart"
+              }).done(function(msg){
+                if (msg == "true") {
+                  Swal.fire({
+                    title: 'Success',
+                    text: "colour updated!",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                    }
+                  })
+                }
+              }).fail(function(e){
+                console.log(e)
+              })
+        })
+
+        prodqty.change(function(e){
+          e.preventDefault()
+          var value = $(this).val()
+          var cid = $(this).attr("data-id")
+          var col = "quantity"
+          $.ajax({
+                type: "POST",
+                data: {cid: cid, col: col, value: value},
+                url: "/updatecart"
+              }).done(function(msg){
+                if (msg == "true") {
+                  Swal.fire({
+                    title: 'Success',
+                    text: "Quantity updated!",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                    }
+                  })
+                }
+              }).fail(function(e){
+                console.log(e)
+              })
+        })
+
+        //Remove cart item
+        rembtn.click(function(e){
+          e.preventDefault()
+          var cid = $(this).attr("data-id")
+          Swal.fire({
+            title: 'Remove item!',
+            text: "Do you really want to remove this item from the cart?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.ajax({
+                type: "POST",
+                data: {cid: cid},
+                url: "/remcart"
+              }).done(function(res){
+                if (res == "true"){
+                    Swal.fire({
+                    title: 'Success',
+                    text: "item removed successfully",
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'OK'
+                    }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload()
+                    }
+                  })
+                }
+                else{
+                  Swal.fire(
+                    'Sorry!',
+                    res,
+                    'error'
+                  )
+                }
+              }).fail(function(e){
+                console.log(e)
+              })
+            }
+          })
+      })
+    })
+    </script>
+  </body>
+</html>
+{% endblock %}
